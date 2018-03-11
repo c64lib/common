@@ -40,7 +40,12 @@
 		sec; lda $A000; sbc #$02; sta $A000
 		lda $A001; sbc #$01; sta $A001
 	}
-				
+	
+	/*
+	 * Adds value from "source" memory location to value in "destination" memory location.
+	 *
+	 * MOD: A, C
+	 */
 	.macro addMem16(source, destination) {
 		clc
 		lda source
@@ -49,6 +54,10 @@
 		lda source + 1
 		adc destination + 1
 		sta destination + 1
+	}
+	.assert "addMem16($A000, $B000)", { :addMem16($A000, $B000) }, {
+		clc; lda $A000; adc $B000; sta $B000
+		lda $A001; adc $B001; sta $B001
 	}
 				
 	.macro subMem16(source, destination) {			
@@ -72,7 +81,7 @@
 				!:				// =19
 				}
 				
-	.macro copy8(source, destimation) {
+	.macro copy8(source, destination) {
 		lda source
 		sta destination
 	}
