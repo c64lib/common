@@ -3,8 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
-  - ka vic2.asm
-  - ka sprites.asm
+  - ka mem.asm
 notifications:
   email:
     on_success: change
