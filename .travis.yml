@@ -3,7 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
-  - ka mem.asm
+  - ka -libdir cpm_modules mem.asm
 notifications:
   email:
     on_success: change
