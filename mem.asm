@@ -1,5 +1,5 @@
 #importonce
-.filenamespace mem
+.filenamespace c64lib
 
 /*
  * Adds 16 bit number "value" to given memory cell specified by "low" address.
