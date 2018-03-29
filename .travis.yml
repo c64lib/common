@@ -3,6 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
+  - cpm vic2 https://github.com/c64lib/vic2/archive/0.0.3.tar.gz 
   - ka mem.asm
   - ka text.asm
 notifications:
