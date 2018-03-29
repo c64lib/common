@@ -1,5 +1,5 @@
 #importonce
-.filenamespace common 
+.filenamespace c64lib
 
 /*
  * Why Kickassembler does not support bitwise negation on numerical values?
