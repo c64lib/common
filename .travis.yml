@@ -4,6 +4,7 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
   - ka mem.asm
+  - ka text.asm
 notifications:
   email:
     on_success: change
