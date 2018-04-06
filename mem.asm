@@ -2,6 +2,16 @@
 .filenamespace c64lib
 
 /*
+ * MOS 650X Vector table constants.
+ */
+.label NMI_LO       = $FFFA
+.label NMI_HI       = $FFFB
+.label RESET_LO     = $FFFC
+.label RESET_HI     = $FFFD
+.label IRQ_LO       = $FFFE
+.label IRQ_HI       = $FFFF
+
+/*
  * Adds 16 bit number "value" to given memory cell specified by "low" address.
  *
  * MOD: A, C
