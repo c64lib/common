@@ -8,7 +8,7 @@
  * value: byte to be negated
  */
 .function neg(value) {
-	.return value ^ $FF
+  .return value ^ $FF
 }
 .assert "neg($00) gives $FF", neg($00), $FF
 .assert "neg($FF) gives $00", neg($FF), $00
