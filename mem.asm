@@ -16,7 +16,7 @@
  *
  * MOD: A, C
  */
-.macro add16(value, low) {
+.macro @add16(value, low) {
   clc
   lda low
   adc #<value
