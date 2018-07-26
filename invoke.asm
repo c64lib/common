@@ -52,7 +52,7 @@
  * Params:
  * value - byte value of the parameter for subroutine
  */
-.macro @pushByteParamV(value) {
+.macro @pushParamB(value) {
   lda #value
   pha
 }
@@ -64,33 +64,33 @@
  * Params:
  * value - word value of the parameter for subroutine
  */
-.macro @pushWordParamV(value) {
-  pushByteParamV(<value)
-  pushByteParamV(>value)
+.macro @pushParamW(value) {
+  pushParamB(<value)
+  pushParamB(>value)
 }
 
 /*
- * Pushes pointer to the byte value as a parameter to the subroutine. 
+ * Pushes byte pointed by an address as a parameter to the subroutine. 
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
  * ptr - pointer to the byte value of the parameter for subroutine
  */
-.macro @pushByteParamPtr(ptr) {
+.macro @pushParamBInd(ptr) {
   lda ptr
   pha
 }
 
 /*
- * Pushes pointer to the two bytes value as a parameter to the subroutine. 
+ * Pushes two bytes value pointed by an address as a parameter to the subroutine. 
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
  * ptr - pointer to the two bytes value of the parameter for subroutine
  */
-.macro @pushWordParamPtr(ptr) {
-  pushByteParamPtr(ptr)
-  pushByteParamPtr(ptr + 1)
+.macro @pushParamWInd(ptr) {
+  pushParamBInd(ptr)
+  pushParamBInd(ptr + 1)
 }
 
 /*
@@ -99,7 +99,7 @@
  * Params:
  * placeholderPtr - pointer to the memory location where given byte will be pulled to
  */
-.macro @pullByteParam(placeholderPtr) {
+.macro @pullParamB(placeholderPtr) {
   pla
   sta placeholderPtr
 }
@@ -110,7 +110,7 @@
  * Params:
  * placeholderPtr - pointer to the beginning of memory location where given two bytes will be pulled to
  */
-.macro @pullWordParam(placeholderPtr) {
-  pullByteParam(placeholderPtr + 1)
-  pullByteParam(placeholderPtr)
+.macro @pullParamW(placeholderPtr) {
+  pullParamB(placeholderPtr + 1)
+  pullParamB(placeholderPtr)
 }
