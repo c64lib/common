@@ -114,3 +114,19 @@
   pullParamB(placeholderPtr + 1)
   pullParamB(placeholderPtr)
 }
+
+/*
+ * Pulls two bytes value from the stack and stores it under provided addresses.
+ *
+ * Params:
+ *   placeholderPtrList - List of memory locations, where given two byte value will be stored
+ */
+.macro @pullParamWList(placeholderPtrList) {
+  .assert "list must be non empty", placeholderPtrList.size() > 0, true
+  pla
+  .for (var i = 0; i < placeholderPtrList.size(); i++) sta placeholderPtrList.get(i) + 1
+  pla
+  .for (var i = 0; i < placeholderPtrList.size(); i++) sta placeholderPtrList.get(i)
+}
+.assert "pullParamWList([$aaaa, $bbbb])", {pullParamWList(List().add($aaaa, $bbbb))}, 
+{pla;sta $aaaa + 1; sta $bbbb + 1; pla; sta $aaaa; sta $bbbb}

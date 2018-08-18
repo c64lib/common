@@ -217,6 +217,37 @@ loop:
 }
 
 /*
+ * Fills given 1024 bytes of memory with given byte.
+ * IN:
+ *   A - value
+ *   Stack WORD - address
+ * OUT:
+ *   none
+ * MOD: A, X
+ */
+.macro _fillScreen() {
+  sta value + 1
+  invokeStackBegin(returnPtr)
+  pullParamWList(List().add(sta0 + 1, sta1 + 1, sta2 + 1, sta3 + 1))
+  add16($0100, sta1 + 1)
+  add16($0200, sta2 + 1)
+  add16($0300, sta3 + 1)
+  value: lda #$00
+  ldx #$00
+loop:
+  sta0: sta $ffff, x
+  sta1: sta $ffff, x
+  sta2: sta $ffff, x
+  sta3: sta $ffff, x
+  inx
+  bne loop
+  invokeStackEnd(returnPtr)
+  rts
+  // local vars
+  returnPtr: .word 0
+}
+
+/*
  * Rotates content given memory area to the right.
  * IN:
  *   X - count
@@ -227,11 +258,7 @@ loop:
  */
 .macro _rotateMemRight() {
   invokeStackBegin(returnPtr)
-  pullParamW(loadFirst + 1)
-  // TODO optimize
-  copyFast(loadFirst + 1, loadNext + 1, 2)
-  copyFast(loadFirst + 1, staNext + 1, 2)
-  copyFast(loadFirst + 1, staLast + 1, 2)
+  pullParamWList(List().add(loadFirst + 1, loadNext + 1, staNext + 1, staLast + 1))
   
   loadFirst: lda $ffff, x
   sta preserve
