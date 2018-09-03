@@ -9,8 +9,9 @@ script:
   - ka -libdir cpm_modules mem.asm
   - ka -libdir cpm_modules math.asm
   - ka -libdir cpm_modules math-global.asm
-  - ka -libdir cpm_modules test/math.spec.asm
-  - ka -libdir cpm_modules test/mem.spec.asm  
+  - ka -libdir cpm_modules test/math-dec16.spec.asm
+  - ka -libdir cpm_modules test/mem-cmp16.spec.asm  
+  - ka -libdir cpm_modules test/mem-copyLargeMemForward.spec.asm
 notifications:
   email:
     on_success: change
