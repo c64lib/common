@@ -1,4 +1,5 @@
 #import "invoke.asm"
+#import "math.asm"
 #importonce
 .filenamespace c64lib
 
@@ -12,98 +13,6 @@
 .label RESET_HI     = $FFFD
 .label IRQ_LO       = $FFFE
 .label IRQ_HI       = $FFFF
-
-/*
- * Adds 16 bit number "value" to given memory cell specified by "low" address.
- *
- * MOD: A, C
- */
-.macro @add16(value, low) {
-  clc
-  lda low
-  adc #<value
-  sta low
-  lda low + 1
-  adc #>value
-  sta low + 1
-}
-.assert "add16($0102, $A000)", { :add16($0102, $A000) }, {
-  clc; lda $A000; adc #$02; sta $A000
-  lda $A001; adc #$01; sta $A001
-}
-        
-/*
- * Subtracts 16 bit number "value" from given memory cell specified by "low" address.
- *
- * MOD: A, C
- */
-.macro sub16(value, low) {
-  sec
-  lda low
-  sbc #<value
-  sta low
-  lda low + 1
-  sbc #>value
-  sta low + 1
-}
-.assert "sub16($0102, $A000)", { :sub16($0102, $A000) }, {
-  sec; lda $A000; sbc #$02; sta $A000
-  lda $A001; sbc #$01; sta $A001
-}
-  
-/*
- * Adds value from "source" memory location to value in "destination" memory location.
- *
- * MOD: A, C
- */
-.macro addMem16(source, destination) {
-  clc
-  lda source
-  adc destination
-  sta destination
-  lda source + 1
-  adc destination + 1
-  sta destination + 1
-}
-.assert "addMem16($A000, $B000)", { :addMem16($A000, $B000) }, {
-  clc; lda $A000; adc $B000; sta $B000
-  lda $A001; adc $B001; sta $B001
-}
-        
-/*
- * Subtracts value from "source" memory location from value in "destination" memory location.
- *
- * MOD: A, C
- */
-.macro subMem16(source, destination) {      
-  sec
-  lda destination
-  sbc source
-  sta destination
-  lda destination + 1
-  sbc source + 1
-  sta destination + 1
-}
-.assert "subMem16($A000, $B000)", { :subMem16($A000, $B000) }, {
-  sec; lda $B000; sbc $A000; sta $B000
-  lda $B001; sbc $A001; sta $B001
-}
-        
-/*
- * Shifts left 2 byte number specified with "low" address. Carry flag indicates last bit that has been "shifted out".
- * 
- * MOD: A, C
- */
-.macro asl16(low) {
-  clc
-  asl low
-  bcc !+
-  lda low + 1
-  asl
-  ora #%1
-  sta low + 1
-!:
-}
 
 /*
  * Copies "count" bytes from memory location starting in "source" to memory location starting from "destination".
@@ -143,18 +52,6 @@ loop:
 }
 
 /*
- * Increments 16 bit number located in memory address starting from "destination".
- *
- * MOD: -
- */
-.macro inc16(destination) {
-  inc destination
-  bne !+
-  inc destination + 1
-!:
-}
-
-/*
  * Fills byte located in memory address "mem" with byte "value".
  *
  * MOD: A
@@ -187,6 +84,15 @@ loop:
   iny
   lda source + 1
   sta (destinationPointer), y
+}
+
+.macro cmp16(value, low) {
+  lda #<value
+  cmp low
+  bne end
+  lda #>value
+  cmp low + 1
+end:
 }
               
 // hosted subroutines
@@ -277,4 +183,42 @@ loop:
   // local vars
   returnPtr: .word 0
   preserve: .byte 0
+}
+
+/*
+ * Copies block of memory forward. Both source and target memory block can overlap as long as target
+ * block is located higher than source block.
+ *
+ * IN:
+ *   Stack WORD - source address
+ *   Stack WORD - target address
+ *   Stack WORD - size
+ * MOD: A, X
+ */
+.macro _copyLargeMemForward() {
+  invokeStackBegin(returnPtr)
+  pullParamW(copyCounter)
+  pullParamW(staNext + 1)
+  pullParamW(ldaNext + 1)
+  addMem16(copyCounter, staNext + 1)
+  addMem16(copyCounter, ldaNext + 1)
+copyNextPage:
+  sub16(256, ldaNext + 1)
+  sub16(256, staNext + 1)
+  ldx #$ff
+copyNext:
+  ldaNext: lda $ffff, x
+  staNext: sta $ffff, x
+  dec16(copyCounter)
+  cmp16(0, copyCounter)
+  beq end
+  dex
+  bne copyNext
+  jmp copyNextPage
+end:
+  invokeStackEnd(returnPtr)
+  rts
+  // local vars
+  returnPtr: .word 0
+  copyCounter: .word 0
 }

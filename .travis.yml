@@ -3,7 +3,13 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
+  - ka -libdir cpm_modules common.asm
+  - ka -libdir cpm_modules invoke.asm
   - ka -libdir cpm_modules mem.asm
+  - ka -libdir cpm_modules math.asm
+  - ka -libdir cpm_modules math-global.asm
+  - ka -libdir cpm_modules test/math.spec.asm
+  - ka -libdir cpm_modules test/mem.spec.asm  
 notifications:
   email:
     on_success: change
