@@ -3,7 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
-  - cpm 64spec https://github.com/64bites/64spec/archive/0.5.0.tar.gz
+  - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
   - ka -libdir cpm_modules common.asm
   - ka -libdir cpm_modules invoke.asm
   - ka -libdir cpm_modules mem.asm
