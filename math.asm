@@ -104,6 +104,7 @@
  */
 .macro inc16(destination) {
   inc destination
+  lda destination
   bne !+
   inc destination + 1
 !:
@@ -116,6 +117,7 @@
  */
 .macro dec16(destination) {
   dec destination
+  lda destination
   cmp #$ff
   bne !+
   dec destination + 1

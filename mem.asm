@@ -213,6 +213,7 @@ copyNext:
   cmp16(0, copyCounter)
   beq end
   dex
+  cpx #$ff
   bne copyNext
   jmp copyNextPage
 end:
