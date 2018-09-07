@@ -1,6 +1,6 @@
 #import "64spec/lib/64spec.asm"
-#import "../mem.asm"
-#import "../invoke.asm"
+#import "../mem-global.asm"
+#import "../invoke-global.asm"
 
 
 sfspec: init_spec()
