@@ -104,7 +104,6 @@
  */
 .macro inc16(destination) {
   inc destination
-  lda destination // why is this necessary
   bne !+
   inc destination + 1
 !:
@@ -117,7 +116,7 @@
  */
 .macro dec16(destination) {
   dec destination
-  lda destination // why is this necessary??
+  lda destination
   cmp #$ff
   bne !+
   dec destination + 1
