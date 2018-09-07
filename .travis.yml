@@ -4,8 +4,8 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
   - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
-  - for f in *.asm; do ka -libdir cpm_modules $f; done
-  - for f in test/*.asm; do ka -libdir cpm_modules $f; done
+  - ka_all .
+  - ka_all test
 notifications:
   email:
     on_success: change
