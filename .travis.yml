@@ -4,14 +4,8 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
   - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
-  - ka -libdir cpm_modules common.asm
-  - ka -libdir cpm_modules invoke.asm
-  - ka -libdir cpm_modules mem.asm
-  - ka -libdir cpm_modules math.asm
-  - ka -libdir cpm_modules math-global.asm
-  - ka -libdir cpm_modules test/math-dec16.spec.asm
-  - ka -libdir cpm_modules test/mem-cmp16.spec.asm  
-  - ka -libdir cpm_modules test/mem-copyLargeMemForward.spec.asm
+  - for f in *.asm; do ka -libdir cpm_modules $f; done
+  - for f in test/*.asm; do ka -libdir cpm_modules $f; done
 notifications:
   email:
     on_success: change
