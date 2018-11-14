@@ -1,0 +1,31 @@
+
+plugins {
+    id "de.undercouch.download" version "3.4.3"
+}
+
+def kaJar = new File(buildDir,'ka/KickAss.jar')
+
+task downloadKickAss(type: Download) {
+    src 'https://github.com/c64lib/asm-ka/releases/download/5.1/KickAss.jar'
+    dest kaJar
+}
+
+task clean {
+	doLast {
+		println 'cleaned!'
+	}
+}
+
+task build() {
+	doLast {
+		javaexec {
+			main = '-jar';
+			args = [kaJar, '-libdir', '..', 'common.asm']
+		}
+		println 'built!'
+	}
+}
+
+task ka(type: JavaExec, dependsOn: downloadKickAss) {
+	
+}

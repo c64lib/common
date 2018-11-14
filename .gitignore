@@ -2,3 +2,7 @@
 *.prg
 *.sym
 
+# gradle
+.gradle
+build
+
