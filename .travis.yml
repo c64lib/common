@@ -5,7 +5,7 @@ before_install:
 script:
   - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
   - kall .
-  - kall mem
+  - kall sub
   - kall test
 notifications:
   email:
