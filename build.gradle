@@ -26,7 +26,7 @@ task clean {
 
 task assemble(dependsOn: downloadKickAss) {
 	description 'Launch KickAssembler on each asm file in the project'
-	fileTree(dir: '.', include: '**/*.asm').each { file ->
+	fileTree(dir: '.', include: '**/*.asm', exclude: 'cpm_modules').each { file ->
 		doLast {
 			println file.path
 			javaexec {
