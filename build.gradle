@@ -6,26 +6,37 @@ plugins {
 def kaJar = new File(buildDir,'ka/KickAss.jar')
 
 task downloadKickAss(type: Download) {
-    src 'https://github.com/c64lib/asm-ka/releases/download/5.1/KickAss.jar'
+	ext.version = '5.0'
+    src "https://github.com/c64lib/asm-ka/releases/download/$version/KickAss.jar"
     dest kaJar
 }
 
+task kickAss(type: JavaExec, dependsOn: downloadKickAss) {
+	ext.inputFile = 'common.asm'
+	main '-jar'			
+	args kaJar, '-libdir', '..', inputFile
+}
+
 task clean {
-	doLast {
-		println 'cleaned!'
+	delete buildDir
+	delete fileTree(".").matching {
+		include "**/*.prg", "**/*.sym"
 	}
 }
 
-task build() {
-	doLast {
-		javaexec {
-			main = '-jar';
-			args = [kaJar, '-libdir', '..', 'common.asm']
+task assemble(dependsOn: downloadKickAss) {
+	description 'Launch KickAssembler on each asm file in the project'
+	fileTree(dir: '.', include: '**/*.asm').each { file ->
+		doLast {
+			println file.path
+			javaexec {
+				main '-jar'
+				args kaJar, '-libdir', '..', file.path
+			}
 		}
-		println 'built!'
 	}
 }
 
-task ka(type: JavaExec, dependsOn: downloadKickAss) {
-	
+task build(dependsOn: assemble) {
 }
+
