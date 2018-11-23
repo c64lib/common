@@ -6,8 +6,7 @@ plugins {
 def kaJar = new File(buildDir,'ka/KickAss.jar')
 
 task downloadKickAss(type: Download) {
-	ext.version = '5.0'
-    src "https://github.com/c64lib/asm-ka/releases/download/$version/KickAss.jar"
+    src "https://github.com/c64lib/asm-ka/releases/download/$kickAssemblerVersion/KickAss.jar"
     dest kaJar
 }
 
