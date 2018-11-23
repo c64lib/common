@@ -11,12 +11,6 @@ task downloadKickAss(type: Download) {
     dest kaJar
 }
 
-task kickAss(type: JavaExec, dependsOn: downloadKickAss) {
-	ext.inputFile = 'common.asm'
-	main '-jar'			
-	args kaJar, '-libdir', libdir, inputFile
-}
-
 task clean {
 	delete buildDir
 	delete fileTree(".").matching {
@@ -31,7 +25,7 @@ task assemble(dependsOn: downloadKickAss) {
 			println file.path
 			javaexec {
 				main '-jar'
-				args kaJar, '-libdir', '..', file.path
+				args kaJar, '-libdir', libdir, file.path
 			}
 		}
 	}
