@@ -4,7 +4,7 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
   - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
-  - ./gradlew build
+  - ./gradlew -P libdir=cpm_modules build
 notifications:
   email:
     on_success: change

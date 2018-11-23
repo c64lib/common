@@ -14,7 +14,7 @@ task downloadKickAss(type: Download) {
 task kickAss(type: JavaExec, dependsOn: downloadKickAss) {
 	ext.inputFile = 'common.asm'
 	main '-jar'			
-	args kaJar, '-libdir', '..', inputFile
+	args kaJar, '-libdir', "$libdir", inputFile
 }
 
 task clean {
