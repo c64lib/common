@@ -1,35 +1,72 @@
+class KickAssemblerPlugin implements Plugin<Project> {
 
-plugins {
-    id "de.undercouch.download" version "3.4.3"
-}
-
-def kaJar = new File(buildDir,'ka/KickAss.jar')
-
-task downloadKickAss(type: Download) {
-    src "https://github.com/c64lib/asm-ka/releases/download/$kickAssemblerVersion/KickAss.jar"
-    dest kaJar
-}
-
-task clean {
-	delete buildDir
-	delete fileTree(".").matching {
-		include "**/*.prg", "**/*.sym"
+	void apply(Project project) {
+		def extension = project.extensions.create('kickAssembler', KickAssemblerPluginExtension, project)
+		project.tasks.create('assemble', Assemble) {
+			kaJar = extension.kaJar;
+			libDir = extension.libDir;
+		}
+		project.tasks.create('clean', CleanKickFiles)
 	}
 }
 
-task assemble(dependsOn: downloadKickAss) {
-	description 'Launch KickAssembler on each asm file in the project'
-	fileTree(dir: '.', include: '**/*.asm', exclude: 'cpm_modules').each { file ->
-		doLast {
+class KickAssemblerPluginExtension {
+
+	final Property<File> kaJar
+	final Property<String> libDir
+	
+	KickAssemblerPluginExtension(Project project) {
+		kaJar = project.objects.property(File)
+		kaJar.set(new File(project.buildDir,'ka/KickAss.jar'))
+		libDir = project.objects.property(String)
+		libDir.set('..')
+	}
+}
+
+class Assemble extends DefaultTask {
+
+	final Property<File> kaJar = project.objects.property(File)
+	final Property<String> libDir = project.objects.property(String)
+
+	@TaskAction
+	def assemble() {
+		project.fileTree(dir: '.', include: '**/*.asm', exclude: 'cpm_modules').each { file ->
 			println file.path
-			javaexec {
+			project.javaexec {
 				main '-jar'
-				args kaJar, '-libdir', libdir, file.path
+				args kaJar.get(), '-libdir', libDir.get(), file.path
 			}
 		}
 	}
 }
 
-task build(dependsOn: assemble) {
+class CleanKickFiles extends Delete {
+
+	@TaskAction
+	def void clean() {
+		delete project.buildDir
+		delete project.fileTree(".").matching {
+			include "**/*.prg", "**/*.sym"
+		}
+	}
+}
+
+
+plugins {
+    id "de.undercouch.download" version "3.4.3"
+}
+
+apply plugin: KickAssemblerPlugin 
+
+def kaJar = new File(buildDir,'ka/KickAss.jar')
+
+kickAssembler {
+	libDir = libdir
+}
+
+
+task downloadKickAss(type: Download) {
+    src "https://github.com/c64lib/asm-ka/releases/download/$kickAssemblerVersion/KickAss.jar"
+    dest kaJar
 }
 
