@@ -1,5 +1,5 @@
 #import "64spec/lib/64spec.asm"
-#import "../invoke-global.asm"
+#import "../lib/invoke-global.asm"
 
 
 sfspec: init_spec()
@@ -28,7 +28,7 @@ finish_spec()
 
 * = * "Data"
 copyLargeMemForward: 
-                #import "../sub/copy-large-mem-forward.asm"
+                #import "../lib/sub/copy-large-mem-forward.asm"
 dataToBeMoved: .text "foo bar"
 targetLocation: .text "       "
 

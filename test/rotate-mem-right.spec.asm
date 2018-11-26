@@ -1,5 +1,5 @@
 #import "64spec/lib/64spec.asm"
-#import "../invoke-global.asm"
+#import "../lib/invoke-global.asm"
 
 
 sfspec: init_spec()
@@ -18,6 +18,6 @@ finish_spec()
 
 * = * "Data"
 rotateMemRight: 
-                #import "../sub/rotate-mem-right.asm"
+                #import "../lib/sub/rotate-mem-right.asm"
 dataToBeRotated: .text "foo bar"
 dataToBeCompared: .text "rfoo ba"

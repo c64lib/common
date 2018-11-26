@@ -1,5 +1,5 @@
 #import "64spec/lib/64spec.asm"
-#import "../math-global.asm"
+#import "../lib/math-global.asm"
 
 sfspec: init_spec()
   describe("dec16")

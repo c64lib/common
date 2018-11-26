@@ -1,5 +1,5 @@
 #import "64spec/lib/64spec.asm"
-#import "../mem-global.asm"
+#import "../lib/mem-global.asm"
 
 sfspec: init_spec()
 
