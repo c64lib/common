@@ -48,6 +48,7 @@ class CleanKickFiles extends Delete {
 		delete project.fileTree(".").matching {
 			include "**/*.prg", "**/*.sym"
 		}
+		super.clean()
 	}
 }
 
