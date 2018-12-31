@@ -125,7 +125,7 @@ end:
   sta $A001
   pla; sta $A002
 }
-.assert "rotateMemRightFast($A000, 5) rotates 5 values", { rotateMemRightFast($A000, 5) }, {
+.assert "rotateMemRightFast($A000, 7) rotates 7 values", { rotateMemRightFast($A000, 7) }, {
   lda $A000; pha
   lda $A001
   sta $A000
@@ -135,5 +135,9 @@ end:
   sta $A002
   lda $A004
   sta $A003
-  pla; sta $A004
+  lda $A005
+  sta $A004
+  lda $A006
+  sta $A005
+  pla; sta $A006
 }
