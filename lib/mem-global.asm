@@ -8,3 +8,4 @@
 .macro @set16(value, mem) { set16(value, mem) }
 .macro @copyWordIndirect(source, destinationPointer) { copyWordIndirect(source, destinationPointer) }
 .macro @cmp16(value, low) { cmp16(value, low) } 
+.macro @c64lib_rotateMemRightFast(startPtr, count) { rotateMemRightFast(startPtr, count) }

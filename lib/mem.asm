@@ -94,3 +94,46 @@ loop:
   cmp low + 1
 end:
 }
+
+.macro rotateMemRightFast(startPtr, count) {
+  lda startPtr
+  pha
+  
+  .for(var i = 0; i < count - 1; i++) {
+    lda startPtr + i + 1
+    sta startPtr + i
+  }
+  
+  pla
+  sta startPtr + count - 1
+}
+.assert "rotateMemRightFast($A000, 1) does (almost) nothing", { rotateMemRightFast($A000, 1) }, {
+  lda $A000; pha
+  pla; sta $A000
+}
+.assert "rotateMemRightFast($A000, 2) swaps values", { rotateMemRightFast($A000, 2) }, {
+  lda $A000; pha
+  lda $A001
+  sta $A000
+  pla; sta $A001
+}
+.assert "rotateMemRightFast($A000, 3) rotates 3 values", { rotateMemRightFast($A000, 3) }, {
+  lda $A000; pha
+  lda $A001
+  sta $A000
+  lda $A002
+  sta $A001
+  pla; sta $A002
+}
+.assert "rotateMemRightFast($A000, 5) rotates 5 values", { rotateMemRightFast($A000, 5) }, {
+  lda $A000; pha
+  lda $A001
+  sta $A000
+  lda $A002
+  sta $A001
+  lda $A003
+  sta $A002
+  lda $A004
+  sta $A003
+  pla; sta $A004
+}
