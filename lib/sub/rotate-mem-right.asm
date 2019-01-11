@@ -14,19 +14,19 @@
   rotateMemRight: {
 
   invokeStackBegin(returnPtr)
-  pullParamWList(List().add(loadFirst + 1, loadNext + 1, staNext + 1, staLast + 1))
+  pullParamWList(List().add(loadFirst, loadNext, staNext, staLast))
 
-  loadFirst:      lda $ffff, x
-                  sta preserve
-                  loop:
-                    dex
-  loadNext:         lda $ffff, x
-                    inx
-  staNext:          sta $ffff, x
-                    dex
-                  bne loop
-                  lda preserve
-  staLast:        sta $ffff
+  lda loadFirst:$ffff, x
+  sta preserve
+  loop:
+    dex
+    lda loadNext:$ffff, x
+    inx
+    sta staNext:$ffff, x
+    dex
+  bne loop
+  lda preserve
+  sta staLast:$ffff
           
   invokeStackEnd(returnPtr)
   rts

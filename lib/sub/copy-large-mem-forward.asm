@@ -16,26 +16,26 @@
 
   invokeStackBegin(returnPtr)
   pullParamW(copyCounter)
-  pullParamW(staNext + 1)
-  pullParamW(ldaNext + 1)
+  pullParamW(staNext)
+  pullParamW(ldaNext)
   
-              addMem16(copyCounter, staNext + 1)
-              addMem16(copyCounter, ldaNext + 1)
-              copyNextPage:
-                sub16(256, ldaNext + 1)
-                sub16(256, staNext + 1)
-                ldx #$ff
-                copyNext:
-  ldaNext:        lda $ffff, x
-  staNext:        sta $ffff, x
-                  dec16(copyCounter)
-                  cmp16(0, copyCounter)
-                  beq end
-                  dex
-                  cpx #$ff
-                bne copyNext
-              jmp copyNextPage
-              end:
+  addMem16(copyCounter, staNext)
+  addMem16(copyCounter, ldaNext)
+  copyNextPage:
+    sub16(256, ldaNext)
+    sub16(256, staNext)
+    ldx #$ff
+    copyNext:
+      lda ldaNext:$ffff, x
+      sta staNext:$ffff, x
+      dec16(copyCounter)
+      cmp16(0, copyCounter)
+      beq end
+      dex
+      cpx #$ff
+    bne copyNext
+  jmp copyNextPage
+  end:
               
   invokeStackEnd(returnPtr)
   rts
