@@ -2,9 +2,9 @@
 #importonce
 .filenamespace c64lib
 
-.macro @add16(value, low) { add16(value, low) }
-.macro @sub16(value, low) { sub16(value, low) }
-.macro @addMem16(source, destination) { addMem16(source, destination ) }
-.macro @asl16(low) { asl16(low) }
-.macro @inc16(destination) { inc16(destination) }
-.macro @dec16(destination) { dec16(destination) }
+.macro @c64lib_add16(value, low) { add16(value, low) }
+.macro @c64lib_sub16(value, low) { sub16(value, low) }
+.macro @c64lib_addMem16(source, destination) { addMem16(source, destination ) }
+.macro @c64lib_asl16(low) { asl16(low) }
+.macro @c64lib_inc16(destination) { inc16(destination) }
+.macro @c64lib_dec16(destination) { dec16(destination) }

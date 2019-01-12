@@ -7,7 +7,7 @@ sfspec: init_spec()
   describe("rotate-mem-right")
 
   it("rotates 7 bytes of data"); {
-    pushParamW(dataToBeRotated)
+    c64lib_pushParamW(dataToBeRotated)
     ldx #7
     jsr rotateMemRight
   

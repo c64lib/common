@@ -42,12 +42,12 @@
 .macro fillScreen(address, value) {
   lda #value
   ldx #$00
-loop:
-  sta address, x
-  sta address + $0100, x
-  sta address + $0200, x
-  sta address + $0300, x
-  inx
+  loop:
+    sta address, x
+    sta address + $0100, x
+    sta address + $0200, x
+    sta address + $0300, x
+    inx
   bne loop
 }
 

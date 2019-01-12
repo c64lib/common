@@ -7,18 +7,18 @@ sfspec: init_spec()
   describe("copyLargeMemForward")
 
   it("copies 7 bytes forward non overlapping"); {
-    pushParamW(dataToBeMoved)
-    pushParamW(targetLocation)
-    pushParamW(7)
+    c64lib_pushParamW(dataToBeMoved)
+    c64lib_pushParamW(targetLocation)
+    c64lib_pushParamW(7)
     jsr copyLargeMemForward
   
     assert_bytes_equal 7: targetLocation: dataToBeMoved
   }
   
   it("copies 260 bytes forward non overlapping"); {
-    pushParamW(largeDataToBeMoved)
-    pushParamW(largeTargetLocation)
-    pushParamW(260)
+    c64lib_pushParamW(largeDataToBeMoved)
+    c64lib_pushParamW(largeTargetLocation)
+    c64lib_pushParamW(260)
     jsr copyLargeMemForward
     
     assert_bytes_equal 19: largeTargetLocation: largeDataToBeMoved
