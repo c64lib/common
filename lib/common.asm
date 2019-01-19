@@ -17,7 +17,7 @@
 /*
  * "Far" bne branch. Depending on the jump length it either does bne or beq/jmp trick.
  */
-.pseudocommand fbne label {
+.macro fbne(label) {
   here:
     .if (here > label) {
       // jump back
