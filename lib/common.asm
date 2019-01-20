@@ -18,10 +18,10 @@
  * "Far" bne branch. Depending on the jump length it either does bne or beq/jmp trick.
  */
 .macro fbne(label) {
-  here:
+  here: // we have to add 2 to "here", because relative jump is counted right after bne xx, and this instruction takes 2 bytes
     .if (here > label) {
       // jump back
-      .if (here - label <= 127) {
+      .if (here + 2 - label <= 128) {
         bne label
        } else {
         beq skip
@@ -30,7 +30,7 @@
        }
     } else {
       // jump forward
-      .if (label - here <= 128) {
+      .if (label - here - 2 <= 127) {
         bne label
       } else {
         beq skip
