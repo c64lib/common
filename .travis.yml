@@ -3,7 +3,7 @@ sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
 script:
-  - cpm 64spec https://github.com/64bites/64spec/archive/0.7.0.tar.gz
+  - cpm 64spec https://github.com/c64lib/64spec/archive/0.7.0pr.tar.gz
   - ./gradlew -P libdir=cpm_modules downloadKickAss assemble
 notifications:
   email:
