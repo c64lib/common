@@ -1,3 +1,4 @@
+/*
 class KickAssemblerPlugin implements Plugin<Project> {
 
 	void apply(Project project) {
@@ -14,7 +15,7 @@ class KickAssemblerPluginExtension {
 
 	final Property<File> kaJar
 	final Property<String> libDir
-	
+
 	KickAssemblerPluginExtension(Project project) {
 		kaJar = project.objects.property(File)
 		kaJar.set(new File(project.buildDir,'ka/KickAss.jar'))
@@ -30,7 +31,7 @@ class Assemble extends DefaultTask {
 
 	@TaskAction
 	def assemble() {
-		project.fileTree(dir: '.', include: '**/*.asm', exclude: 'cpm_modules').each { file ->
+		project.fileTree(dir: '.', include: '**//*.asm', exclude: 'cpm_modules').each { file ->
 			println file.path
 			project.javaexec {
 				main '-jar'
@@ -40,24 +41,32 @@ class Assemble extends DefaultTask {
 	}
 }
 
+
+
 class CleanKickFiles extends Delete {
 
 	@TaskAction
 	def void clean() {
 		delete project.buildDir
 		delete project.fileTree(".").matching {
-			include "**/*.prg", "**/*.sym"
+			include "**//*.prg", "**//*.sym"
 		}
 		super.clean()
 	}
 }
 
+*/
 
 plugins {
     id "de.undercouch.download" version "3.4.3"
+    id "com.github.c64lib.kick-assembler" version "1.0.0"
 }
 
-apply plugin: KickAssemblerPlugin 
+repositories {
+    jcenter()
+}
+
+apply plugin: "com.github.c64lib.gradle.assembler"
 
 def kaJar = new File(buildDir,'ka/KickAss.jar')
 
@@ -70,4 +79,7 @@ task downloadKickAss(type: Download) {
     src "https://github.com/c64lib/asm-ka/releases/download/$kickAssemblerVersion/KickAss.jar"
     dest kaJar
 }
+
+
+
 
