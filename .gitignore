@@ -6,3 +6,5 @@
 .gradle
 build
 
+.idea
+.ra
