@@ -1,4 +1,4 @@
-language: java
+language: asm
 sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/c64lib/travis-ci/master/install.sh)
