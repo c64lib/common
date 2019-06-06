@@ -9,8 +9,14 @@ repositories {
 
 apply plugin: "com.github.c64lib.retro-assembler"
 
+ext {
+    env = System.properties["env"] ?: "ci"
+}
+
+println(env)
+
 retroProject {
     dialect = "KickAssembler"
-    libDirs = ["..", "cpm_modules"]
+    libDirs = [env == "dev" ? ".." : "cpm_modules"]
 }
 
