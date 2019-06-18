@@ -1,10 +1,11 @@
-.cbm
+# KickAssembler out files
 *.prg
 *.sym
+*.vs
 
-# gradle
+# Gradle files
 .gradle
-build
 
+# IDE and tool files
 .idea
 .ra
