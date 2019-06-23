@@ -1,7 +1,8 @@
 language: asm
 sudo: required
 before_install:
-  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
+  - sudo apt-get install build-essential byacc texi2html flex libreadline-dev libxaw7-dev texinfo libxaw7-dev libgtk2.0-cil-dev libgtkglext1-dev libpulse-dev
+#  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
 script:
   - ./gradlew
 notifications:
