@@ -2,6 +2,7 @@
 *.prg
 *.sym
 *.vs
+*.specOut
 
 # Gradle files
 .gradle

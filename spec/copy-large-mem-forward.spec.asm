@@ -11,23 +11,23 @@ sfspec: init_spec()
     c64lib_pushParamW(targetLocation)
     c64lib_pushParamW(7)
     jsr copyLargeMemForward
-  
+
     assert_bytes_equal 7: targetLocation: dataToBeMoved
   }
-  
+
   it("copies 260 bytes forward non overlapping"); {
     c64lib_pushParamW(largeDataToBeMoved)
     c64lib_pushParamW(largeTargetLocation)
     c64lib_pushParamW(260)
     jsr copyLargeMemForward
-    
+
     assert_bytes_equal 19: largeTargetLocation: largeDataToBeMoved
   }
-  
+
 finish_spec()
 
 * = * "Data"
-copyLargeMemForward: 
+copyLargeMemForward:
                 #import "../lib/sub/copy-large-mem-forward.asm"
 dataToBeMoved: .text "foo bar"
 targetLocation: .text "       "
