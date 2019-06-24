@@ -1,16 +1,8 @@
 language: asm
 sudo: required
-dist: xenial
+dist: bionic
 before_install:
-  - sudo apt-get install build-essential byacc texi2html flex libreadline-dev libxaw7-dev texinfo libxaw7-dev libgtk2.0-cil-dev libgtkglext1-dev libpulse-dev
-  - wget -P . https://downloads.sourceforge.net/project/vice-emu/releases/vice-3.3.tar.gz?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fvice-emu%2Ffiles%2Freleases%2Fvice-3.3.tar.gz%2Fdownload%3Fuse_mirror%3Dnetix&ts=1561293290
-  - ls -al
-  - tar -zxvf vice-3.3.tar.gz
-  - cd vice-3.0
-  - ./configure --enable-fullscreen --with-pulse --with-x --enable-gnomeui
-  - make
-  - sudo make install
-#  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
+  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
 script:
   - ./gradlew
 notifications:
