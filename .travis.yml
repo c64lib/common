@@ -5,6 +5,7 @@ before_install:
   - sudo apt-get clean
   - sudo apt-get update
   - sudo apt-get install dpkg
+  - sudo apt-get install libgtkglext1 libpng16-16 libreadline7
   - wget https://launchpad.net/ubuntu/+archive/primary/+files/vice_3.1.0.dfsg1-1_amd64.deb
   - sudo dpkg -i vice_3.1.0.dfsg1-1_amd64.deb
 #  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
