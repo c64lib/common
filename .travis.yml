@@ -5,7 +5,12 @@ before_install:
   - sudo apt-get clean
   - sudo apt-get update
   - sudo apt-get install dpkg
-  - sudo apt-get install libgtkglext1 libpng16-16 libreadline7
+  - wget http://security.debian.org/debian-security/pool/updates/main/libp/libpng1.6/libpng16-16_1.6.28-1+deb9u1_amd64.deb
+  - sudo dpkg -i libpng16-16_1.6.28-1+deb9u1_amd64.deb
+  - wget http://ftp.pl.debian.org/debian/pool/main/r/readline/libreadline7_7.0-3_amd64.deb
+  - sudo dpkg -i libreadline7_7.0-3_amd64.deb
+  - wget http://ftp.pl.debian.org/debian/pool/main/g/gtkglext/libgtkglext1_1.2.0-4_amd64.deb
+  - sudo dpkg -i libgtkglext1_1.2.0-4_amd64.deb
   - wget https://launchpad.net/ubuntu/+archive/primary/+files/vice_3.1.0.dfsg1-1_amd64.deb
   - sudo dpkg -i vice_3.1.0.dfsg1-1_amd64.deb
 #  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
