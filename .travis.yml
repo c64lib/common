@@ -2,6 +2,9 @@ language: asm
 sudo: required
 dist: bionic
 before_install:
+  - sudo apt-get clean
+  - sudo apt-get update
+  - sudo apt-get install dpkg
   - wget https://launchpad.net/ubuntu/+archive/primary/+files/vice_3.1.0.dfsg1-1_amd64.deb
   - sudo dpkg -i vice_3.1.0.dfsg1-1_amd64.deb
 #  - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
