@@ -11,7 +11,8 @@ jobs:
         - develop
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      #- image: circleci/openjdk:8-jdk
+      - image: maciejmalecki/c64libci:0.1.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
