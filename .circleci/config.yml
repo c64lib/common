@@ -44,5 +44,5 @@ jobs:
 #          key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
-      - run: sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
+      # - run: sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends vice
       - run: ./gradlew
