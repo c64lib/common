@@ -29,6 +29,8 @@ jobs:
     steps:
       - checkout
 
+      - run: x64 -help
+
       # Download and cache dependencies
 #      - restore_cache:
 #          keys:
