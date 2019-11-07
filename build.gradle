@@ -11,7 +11,7 @@ apply plugin: "com.github.c64lib.retro-assembler"
 retroProject {
 
     dialect = "KickAssembler"
-    dialectVersion = "5.7"
+    dialectVersion = "5.9"
     libDirs = ["..", ".ra/deps/c64lib"]
 
     libFromGitHub "c64lib/64spec", "0.7.0pr"
