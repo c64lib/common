@@ -39,3 +39,31 @@
       }
     }
 }
+
+/*
+ * "Far" bmi branch. Depending on the jump length it either does bne or beq/jmp trick.
+ */
+.macro fbmi(label) {
+  here: // we have to add 2 to "here", because relative jump is counted right after bne xx, and this instruction takes 2 bytes
+    .if (here > label) {
+      // jump back
+      .if (here + 2 - label <= 128) {
+        bmi label
+       } else {
+        bpl skip
+        beq skip
+          jmp label
+        skip:
+       }
+    } else {
+      // jump forward
+      .if (label - here - 2 <= 127) {
+        bmi label
+      } else {
+        bpl skip
+        beq skip
+          jmp label
+        skip:
+      }
+    }
+}
