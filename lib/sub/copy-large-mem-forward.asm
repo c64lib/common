@@ -1,5 +1,6 @@
 #import "../invoke.asm"
 #import "../mem.asm"
+#import "../math.asm"
 
 /*
  * Copies block of memory forward. Both source and target memory block can overlap as long as target
