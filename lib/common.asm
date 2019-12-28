@@ -15,6 +15,16 @@
 .assert "neg(%10101010) gives %01010101", neg(%10101010), %01010101
 
 /*
+ * Increases argument by one preserving its type (addressing mode). To be used in pseudocommands.
+ *
+ * Params:
+ * arg: mnemonic argument
+ */
+.function incArgument(arg) {
+  .return CmdArgument(arg.getType(), arg.getValue() + 1)
+}
+
+/*
  * "Far" bne branch. Depending on the jump length it either does bne or beq/jmp trick.
  */
 .macro fbne(label) {

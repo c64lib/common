@@ -34,6 +34,13 @@
   lda $A001; sta $B001
 }
 
+.pseudocommand copy16 source:destination {
+  lda source
+  sta destination
+  lda incArgument(source)
+  sta incArgument(destination)
+}
+
 /*
  * Fills 1kb of memory (screen) starting from "address" with given "value".
  *
