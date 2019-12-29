@@ -69,7 +69,11 @@
  * MOD: A
  */
 .macro set8(value, mem) {
-  lda #value
+  set8 #value : mem
+}
+
+.pseudocommand set8 value : mem {
+  lda value
   sta mem
 }
 
