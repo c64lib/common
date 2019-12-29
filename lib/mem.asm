@@ -41,6 +41,11 @@
   sta incArgument(destination)
 }
 
+.pseudocommand copy8 source:destination {
+  lda source
+  sta destination
+}
+
 /*
  * Fills 1kb of memory (screen) starting from "address" with given "value".
  *
