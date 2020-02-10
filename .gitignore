@@ -3,6 +3,8 @@
 *.sym
 *.vs
 *.specOut
+.asminfo.txt
+.source.txt
 
 # Gradle files
 .gradle

@@ -77,3 +77,10 @@
       }
     }
 }
+
+/*
+ * Convert kbytes to bytes.
+ */
+.function toBytes(value) {
+  .return value * 1024
+}
