@@ -117,11 +117,9 @@
 .assert @"convertMultic(\"####\") = 255", convertMultic("####"), 255
 
 .macro ch(data) {
-  .assert "Hires character line length must be 8", data.size(), 8
   .byte convertHires(data.substring(0, 8))
 }
 
 .macro cm(data) {
-  .assert "Multicolor character line length must be 4", data.size(), 4
   .byte convertMultic(data.substring(0, 4))
 }
