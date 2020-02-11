@@ -1,6 +1,7 @@
 # KickAssembler out files
 *.prg
 *.sym
+*.dbg
 *.vs
 *.specOut
 .asminfo.txt

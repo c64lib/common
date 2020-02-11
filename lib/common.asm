@@ -84,3 +84,44 @@
 .function toBytes(value) {
   .return value * 1024
 }
+
+.function convertHires(data) {
+  .var result = ""
+  .for(var i = 0; i < data.size(); i++) {
+    .var ch = data.charAt(i)
+    .if (ch == '.') {
+      .eval result = result + '0'
+    } else {
+      .eval result = result + '1'
+    }
+  }
+  .return result.asNumber(2)
+}
+.assert @"convertHires(\"........\") = 0", convertHires("........"), 0
+.assert @"convertHires(\".......#\") = 1", convertHires(".......#"), 1
+.assert @"convertHires(\"########\") = 255", convertHires("########"), 255
+
+.function convertMultic(data) {
+  .var result = ""
+  .for(var i = 0; i < data.size(); i++) {
+    .var ch = data.charAt(i)
+    .if (ch == '.') .eval result = result + "00"
+    .if (ch == '#') .eval result = result + "11"
+    .if (ch == '+') .eval result = result + "01"
+    .if (ch == 'o') .eval result = result + "10"
+  }
+  .return result.asNumber(2)
+}
+.assert @"convertMultic(\"....\") = 0", convertMultic("...."), 0
+.assert @"convertMultic(\"...#\") = 3", convertMultic("...#"), 3
+.assert @"convertMultic(\"####\") = 255", convertMultic("####"), 255
+
+.macro ch(data) {
+  .assert "Hires character line length must be 8", data.size(), 8
+  .byte convertHires(data.substring(0, 8))
+}
+
+.macro cm(data) {
+  .assert "Multicolor character line length must be 4", data.size(), 4
+  .byte convertMultic(data.substring(0, 4))
+}
