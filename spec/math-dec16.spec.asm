@@ -5,17 +5,17 @@ sfspec: init_spec()
   describe("dec16")
 
   it("of 0 gives 65535"); {
-    dec16(dec16ZeroActual)
+    c64lib_dec16(dec16ZeroActual)
     assert_equal16 dec16ZeroActual: dec16ZeroExpected
   }
 
   it("of 5 gives 4"); {
-    dec16(dec16Actual)
+    c64lib_dec16(dec16Actual)
     assert_equal16 dec16Actual: dec16Expected
   }
   
   it("of 256 gives 255"); {
-    dec16(dec16WordActual)
+    c64lib_dec16(dec16WordActual)
     assert_equal16 dec16WordActual: dec16WordActual
   }
   

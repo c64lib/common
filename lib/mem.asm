@@ -34,6 +34,18 @@
   lda $A001; sta $B001
 }
 
+.pseudocommand copy16 source:destination {
+  lda source
+  sta destination
+  lda incArgument(source)
+  sta incArgument(destination)
+}
+
+.pseudocommand copy8 source:destination {
+  lda source
+  sta destination
+}
+
 /*
  * Fills 1kb of memory (screen) starting from "address" with given "value".
  *
@@ -42,12 +54,12 @@
 .macro fillScreen(address, value) {
   lda #value
   ldx #$00
-loop:
-  sta address, x
-  sta address + $0100, x
-  sta address + $0200, x
-  sta address + $0300, x
-  inx
+  loop:
+    sta address, x
+    sta address + $0100, x
+    sta address + $0200, x
+    sta address + $0300, x
+    inx
   bne loop
 }
 
@@ -57,7 +69,11 @@ loop:
  * MOD: A
  */
 .macro set8(value, mem) {
-  lda #value
+  set8 #value : mem
+}
+
+.pseudocommand set8 value : mem {
+  lda value
   sta mem
 }
 
