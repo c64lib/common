@@ -19,7 +19,7 @@
   pullParamW(copyCounter)
   pullParamW(staNext)
   pullParamW(ldaNext)
-  
+
   addMem16(copyCounter, staNext)
   addMem16(copyCounter, ldaNext)
   copyNextPage:
@@ -37,7 +37,7 @@
     bne copyNext
   jmp copyNextPage
   end:
-              
+
   invokeStackEnd(returnPtr)
   rts
   // local vars

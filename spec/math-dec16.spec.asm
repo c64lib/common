@@ -13,12 +13,12 @@ sfspec: init_spec()
     c64lib_dec16(dec16Actual)
     assert_equal16 dec16Actual: dec16Expected
   }
-  
+
   it("of 256 gives 255"); {
     c64lib_dec16(dec16WordActual)
     assert_equal16 dec16WordActual: dec16WordActual
   }
-  
+
 finish_spec()
 
 * = * "Data"

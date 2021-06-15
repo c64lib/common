@@ -20,7 +20,7 @@
   clc; lda $A000; adc #$02; sta $A000
   lda $A001; adc #$01; sta $A001
 }
-        
+
 /*
  * Subtracts 16 bit number "value" from given memory cell specified by "low" address.
  *
@@ -43,7 +43,7 @@
   sec; lda $A000; sbc #0; sta $A000
   lda $A001; sbc #1; sta $A001
 }
-  
+
 /*
  * Adds value from "source" memory location to value in "destination" memory location.
  *
@@ -71,13 +71,13 @@
   adc incArgument(destination)
   sta incArgument(destination)
 }
-        
+
 /*
  * Subtracts value from "source" memory location from value in "destination" memory location.
  *
  * MOD: A, C
  */
-.macro subMem16(source, destination) {      
+.macro subMem16(source, destination) {
   sub16 source : destination
 }
 .assert "subMem16($A000, $B000)", { subMem16($A000, $B000) }, {
@@ -99,10 +99,10 @@
   sbc incArgument(source)
   sta incArgument(destination)
 }
-        
+
 /*
  * Shifts left 2 byte number specified with "low" address. Carry flag indicates last bit that has been "shifted out".
- * 
+ *
  * MOD: A, C
  */
 .macro asl16(low) {
@@ -111,7 +111,7 @@
 
 /*
  * Shifts left 2 byte number specified with "low" address. Carry flag indicates last bit that has been "shifted out".
- * 
+ *
  * MOD: A, C
  */
 .pseudocommand asl16 low {
@@ -167,4 +167,22 @@
   bne !+
   dec incArgument(destination)
 !:
+}
+
+/*
+ * Multiplies left times right. Target value will be added to the value stored in targetAddr.
+ * Mod: A, X
+ */
+.macro mulAndAdd(left, right, targetAddr) {
+  ldx #right
+  !:
+    clc
+    lda #left
+    adc targetAddr
+    sta targetAddr
+    lda #0
+    adc targetAddr + 1
+    sta targetAddr + 1
+    dex
+  bne !-
 }

@@ -1,10 +1,17 @@
 # c64lib/common
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CircleCI](https://circleci.com/gh/c64lib/common/tree/master.svg?style=svg)](https://circleci.com/gh/c64lib/common/tree/master)
-[![CircleCI](https://circleci.com/gh/c64lib/common/tree/develop.svg?style=svg)](https://circleci.com/gh/c64lib/common/tree/develop)
+[![CircleCI](https://circleci.com/gh/c64lib/common/tree/master.svg?style=shield)](https://circleci.com/gh/c64lib/common/tree/master)
+[![CircleCI](https://circleci.com/gh/c64lib/common/tree/develop.svg?style=shield)](https://circleci.com/gh/c64lib/common/tree/develop)
 [![Gitter](https://badges.gitter.im/c64lib/community.svg)](https://gitter.im/c64lib/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+Check our [User's Manual](https://c64lib.github.io/user-manual/#_common) for more documentation on this library.
+
 ## Change log
+
+### Changes in version 0.3.0
+
+* New macro: `math.asm/mulAndAdd` - multiple two numbers and add result to memory location.
+
 ### Changes in version 0.2.0
 
 * Public elements of library are also declared as global symbols in "-global.asm" files using `c64lib_` name prefix.

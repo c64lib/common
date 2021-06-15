@@ -114,12 +114,12 @@ end:
 .macro rotateMemRightFast(startPtr, count) {
   lda startPtr
   pha
-  
+
   .for(var i = 0; i < count - 1; i++) {
     lda startPtr + i + 1
     sta startPtr + i
   }
-  
+
   pla
   sta startPtr + count - 1
 }

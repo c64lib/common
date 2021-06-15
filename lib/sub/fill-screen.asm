@@ -12,14 +12,14 @@
  */
 .namespace c64lib {
   fillScreen: {
-  
+
   sta value + 1
   invokeStackBegin(returnPtr)
   pullParamWList(List().add(sta0 + 1, sta1 + 1, sta2 + 1, sta3 + 1))
   add16($0100, sta1 + 1)
   add16($0200, sta2 + 1)
   add16($0300, sta3 + 1)
-  
+
   value:      lda #$00
               ldx #$00
               loop:
@@ -29,7 +29,7 @@
   sta3:         sta $ffff, x
                 inx
               bne loop
-              
+
   invokeStackEnd(returnPtr)
   rts
   // local vars

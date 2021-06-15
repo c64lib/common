@@ -9,3 +9,4 @@
 .macro @c64lib_asl16(low) { asl16(low) }
 .macro @c64lib_inc16(destination) { inc16(destination) }
 .macro @c64lib_dec16(destination) { dec16(destination) }
+.macro @c64lib_mulAndAdd(left, right, targetAddr) { mulAndAdd(left, right, targetAddr) }
