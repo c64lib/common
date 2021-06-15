@@ -16,11 +16,11 @@
 .filenamespace c64lib
 
 /*
- * Preserves return address that is used with JSR. 
+ * Preserves return address that is used with JSR.
  * Should be called at beginning of subroutine.
- * 
- * Params: 
- * placeholderPtr - pointer to the memory location (that is local variable of the subroutine) 
+ *
+ * Params:
+ * placeholderPtr - pointer to the memory location (that is local variable of the subroutine)
  *                  where return address will be preserved.
  */
 .macro invokeStackBegin(placeholderPtr) {
@@ -33,9 +33,9 @@
 /*
  * Restores return address that will be then used with RTS.
  * Should be called at the very end of subroutine just before RTS.
- * 
- * Params: 
- * placeholderPtr - pointer to the memory location (that is local variable of the subroutine) 
+ *
+ * Params:
+ * placeholderPtr - pointer to the memory location (that is local variable of the subroutine)
  *                  from where return address will be restored.
  */
 .macro invokeStackEnd(placeholderPtr) {
@@ -46,7 +46,7 @@
 }
 
 /*
- * Pushes byte value as a parameter to the subroutine. 
+ * Pushes byte value as a parameter to the subroutine.
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
@@ -58,7 +58,7 @@
 }
 
 /*
- * Pushes two bytes value as a parameter to the subroutine. 
+ * Pushes two bytes value as a parameter to the subroutine.
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
@@ -70,7 +70,7 @@
 }
 
 /*
- * Pushes byte pointed by an address as a parameter to the subroutine. 
+ * Pushes byte pointed by an address as a parameter to the subroutine.
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
@@ -82,7 +82,7 @@
 }
 
 /*
- * Pushes two bytes value pointed by an address as a parameter to the subroutine. 
+ * Pushes two bytes value pointed by an address as a parameter to the subroutine.
  * Such value should be then pulled in subroutine in opposite order.
  *
  * Params:
@@ -94,7 +94,7 @@
 }
 
 /*
- * Pulls byte value from the stack and stores it under given address. 
+ * Pulls byte value from the stack and stores it under given address.
  *
  * Params:
  * placeholderPtr - pointer to the memory location where given byte will be pulled to
@@ -105,7 +105,7 @@
 }
 
 /*
- * Pulls two bytes value from the stack and stores it under given address. 
+ * Pulls two bytes value from the stack and stores it under given address.
  *
  * Params:
  * placeholderPtr - pointer to the beginning of memory location where given two bytes will be pulled to
@@ -128,5 +128,5 @@
   pla
   .for (var i = 0; i < placeholderPtrList.size(); i++) sta placeholderPtrList.get(i)
 }
-.assert "pullParamWList([$aaaa, $bbbb])", {pullParamWList(List().add($aaaa, $bbbb))}, 
+.assert "pullParamWList([$aaaa, $bbbb])", {pullParamWList(List().add($aaaa, $bbbb))},
 {pla;sta $aaaa + 1; sta $bbbb + 1; pla; sta $aaaa; sta $bbbb}

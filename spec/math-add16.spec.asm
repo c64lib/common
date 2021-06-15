@@ -13,7 +13,7 @@ sfspec: init_spec()
     assert_c_cleared
     assert_equal16 result : expected
   }
-  
+
   it("1 + 0 = 1"); {
     c64lib_set16(1, operand)
     c64lib_set16(0, result)
@@ -39,7 +39,7 @@ sfspec: init_spec()
     assert_c_cleared
     assert_equal16 result : expected
   }
-  
+
   it("256 + 0 = 256"); {
     c64lib_set16(256, operand)
     c64lib_set16(0, result)
@@ -48,7 +48,7 @@ sfspec: init_spec()
     assert_c_cleared
     assert_equal16 result : expected
   }
-  
+
   it("0 + 256 = 256"); {
     c64lib_set16(0, operand)
     c64lib_set16(256, result)

@@ -16,13 +16,13 @@
   sta value + 1 // preserve A for later usage
   invokeStackBegin(returnPtr)
   pullParamW(address + 1)
-  
+
   value:      lda #$00
               loop:
                 dex
   address:      sta $ffff, x
               bne loop
-              
+
   invokeStackEnd(returnPtr)
   rts
   // local vars

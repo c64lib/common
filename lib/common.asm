@@ -3,7 +3,7 @@
 
 /*
  * Why Kickassembler does not support bitwise negation on numerical values?
- * 
+ *
  * Params:
  * value: byte to be negated
  */

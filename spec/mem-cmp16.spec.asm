@@ -9,17 +9,17 @@ sfspec: init_spec()
     c64lib_cmp16(256, _256)
     assert_z_set
   }
-  
+
   it("of 0 and 256 gives false"); {
     c64lib_cmp16(0, _256)
     assert_z_cleared
   }
-  
+
   it("of 7 and 7 gives true"); {
     c64lib_cmp16(7, _7)
     assert_z_set
   }
-  
+
   it("of 0 and 0 gives true"); {
     c64lib_cmp16(0, _0)
     assert_z_set

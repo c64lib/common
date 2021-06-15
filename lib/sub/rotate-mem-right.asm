@@ -7,10 +7,10 @@
  *   Stack WORD - address
  * OUT:
  *   none
- * MOD: 
+ * MOD:
  *   A, X
  */
-.namespace c64lib { 
+.namespace c64lib {
   rotateMemRight: {
 
   invokeStackBegin(returnPtr)
@@ -27,7 +27,7 @@
   bne loop
   lda preserve
   sta staLast:$ffff
-          
+
   invokeStackEnd(returnPtr)
   rts
   // local vars
