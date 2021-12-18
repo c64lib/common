@@ -28,7 +28,7 @@
     ldx #$ff
     copyNext:
       lda ldaNext:$ffff, x
-      sta staNext:$ffff, x
+      lda staNext:$ffff, x
       dec16(copyCounter)
       cmp16(0, copyCounter)
       beq end
