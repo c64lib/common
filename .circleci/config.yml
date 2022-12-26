@@ -7,7 +7,7 @@ jobs:
         - master
         - develop
     docker:
-      - image: maciejmalecki/c64libci:0.1.5rc01
+      - image: maciejmalecki/c64libci:0.1.7rc01
 
     working_directory: ~/repo
 
