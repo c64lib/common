@@ -12,7 +12,6 @@ retroProject {
     dialectVersion = "5.23"
     libDirs = ["..", ".ra/deps/c64lib"]
     viceExecutable = "x64"
-    verbose = true
 
     libFromGitHub "c64lib/64spec", "0.7.0pr"
 }
