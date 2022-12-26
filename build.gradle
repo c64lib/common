@@ -11,7 +11,7 @@ retroProject {
     dialect = "KickAssembler"
     dialectVersion = "5.23"
     libDirs = ["..", ".ra/deps/c64lib"]
-    viceExecutable = "C:\\tools\\GTK3VICE-3.5-win64\\bin\\x64sc.exe"
+    viceExecutable = "x64sc"
 
     libFromGitHub "c64lib/64spec", "0.7.0pr"
 }
