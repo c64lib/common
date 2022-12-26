@@ -1,8 +1,14 @@
-pluginManagement {
-    repositories {
-//        maven {
-//            url 'file://C:/prj/cbm/c64lib/consuming/maven-repo'
-//        }
-        gradlePluginPortal()
-    }
-}
+// pluginManagement {
+//     resolutionStrategy {
+//         eachPlugin {
+//             if (requested.id.namespace == "org.github.c64lib.retro-assembler") {
+//                 useModule("org.github.c64lib.retro-assembler:com.github.c64lib.retro-assembler.gradle.plugin:${requested.version}")
+//             }
+//         }
+//     }
+//   repositories {
+//     mavenLocal()
+//     mavenCentral()
+//   }
+// }
+
