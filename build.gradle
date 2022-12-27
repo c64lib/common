@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.c64lib.retro-assembler" version "1.5.4-rc02"
+    id "com.github.c64lib.retro-assembler" version "1.5.4-rc03"
 }
 
 repositories {
@@ -7,14 +7,11 @@ repositories {
 }
 
 retroProject {
-
     dialect = "KickAssembler"
-    dialectVersion = "5.23"
+    dialectVersion = "5.24"
     libDirs = ["..", ".ra/deps/c64lib"]
     viceExecutable = "x64sc"
-    // viceAutostartPrgMode = "VIRTUAL_FS"
     verbose = true
-
     libFromGitHub "c64lib/64spec", "0.7.0pr"
 }
 
