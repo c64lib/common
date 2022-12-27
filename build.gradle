@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.c64lib.retro-assembler" version "1.5.4-rc03"
+    id "com.github.c64lib.retro-assembler" version "1.5.4-rc04"
 }
 
 repositories {
