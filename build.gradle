@@ -28,6 +28,7 @@ retroProject {
     dialect = "KickAssembler"
     dialectVersion = "5.25"
     libDirs = [".ra/deps/c64lib"]
+    srcDirs = ["lib"]
     libFromGitHub "c64lib/64spec", "0.7.0pr"
 }
 

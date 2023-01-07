@@ -22,10 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "common.asm"
+#import "compress.asm"
 #importonce
 
 .filenamespace c64lib
 
-.macro @c64lib_ch(data) { ch(data) }
-.macro @c64lib_cm(data) { cm(data) }
+.macro @c64lib_compressRLE(data) { compressRLE(data) }

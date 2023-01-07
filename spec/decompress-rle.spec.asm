@@ -22,10 +22,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "common.asm"
-#importonce
+#import "64spec/lib/64spec.asm"
+#import "../lib/compress-global.asm"
+#import "../lib/invoke-global.asm"
 
-.filenamespace c64lib
+.var testData = LoadBinary("decompress-rle.test-data.txt")
 
-.macro @c64lib_ch(data) { ch(data) }
-.macro @c64lib_cm(data) { cm(data) }
+sfspec: init_spec()
+    describe("decompressRLE")
+
+    it("decompress data"); {
+        c64lib_pushParamW(compressedData)
+        c64lib_pushParamW(targetData)
+        jsr decompressRLE
+
+        assert_bytes_equal testData.getSize(): targetData: originalData
+    }
+finish_spec()
+
+* = * "Data"
+decompressRLE:
+    #import "../lib/sub/decompress-rle.asm"
+
+originalData:
+    .fill testData.getSize(), testData.get(i)
+originalDataEnd:
+
+compressedData:
+    c64lib_compressRLE(testData)
+compressedDataEnd:
+
+targetData:
+    .fill testData.getSize(), 0
+targetDataEnd:
