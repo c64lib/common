@@ -8,6 +8,11 @@ Check our [User's Manual](https://c64lib.github.io/user-manual/#_common) for mor
 
 ## Change log
 
+### Changes in version 0.4.0
+
+* New macro: `compress.asm\compressRLE`.
+* New subroutine: `decompress_rle.asm`.
+
 ### Changes in version 0.3.0
 
 * New macro: `math.asm/mulAndAdd` - multiple two numbers and add result to memory location.

@@ -22,10 +22,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "common.asm"
 #importonce
-
 .filenamespace c64lib
 
-.macro @c64lib_ch(data) { ch(data) }
-.macro @c64lib_cm(data) { cm(data) }
+/*
+ * Performs RLE (Running Length Encoding) compression of given binary data (kick assembler data type).
+ * The compressed result is placed as is in the result file starting from the place where this macro is called.
+ */
+.macro compressRLE(binaryData) {
+    .var runLength = 0
+    .var runValue = 0
+    .var crunchedLength = 0
+    .for(var i = 0; i < binaryData.getSize(); i++) {
+        .if(runLength > 0 && (binaryData.get(i) != runValue || runLength == $ff)) {
+            .byte runLength
+            .byte runValue
+            .eval runLength = 0
+            .eval crunchedLength = crunchedLength + 2
+        }
+        .if(runLength == 0) {
+            .eval runValue = binaryData.get(i)
+            .eval runLength = 1
+        } else {
+            .eval runLength++
+        }
+    }
+    .byte runLength
+    .byte runValue
+    .byte $00 // end mark
+    .eval crunchedLength++
+    .print "Crunched from " + binaryData.getSize() + " to " + crunchedLength + " (" + round((crunchedLength/binaryData.getSize())*100) + "%)"
+}

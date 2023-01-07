@@ -22,10 +22,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "common.asm"
-#importonce
+#import "../invoke.asm"
 
-.filenamespace c64lib
+.namespace c64lib {
 
-.macro @c64lib_ch(data) { ch(data) }
-.macro @c64lib_cm(data) { cm(data) }
+    /*
+    * Stack:
+    *   source address (2 bytes)
+    *   dest address (2 bytes)
+    */
+    decompressRLE: {
+    invokeStackBegin(returnPtr)
+    pullParamW(destination)
+    pullParamW(source)
+    invokeStackEnd(returnPtr)
+
+    nextSequence:
+        jsr loadSource
+        cmp #0
+        beq end // end mark
+        tax // x <- run length
+        jsr loadSource // a <- run value
+        decrunch:
+        sta destination:$ffff
+        inc destination
+        bne !+
+            inc destination + 1
+        !:
+        dex
+        bne decrunch
+    jmp nextSequence
+
+    end:
+    rts
+    loadSource:
+        lda source:$ffff
+        inc source
+        bne !+
+        inc source + 1
+        !:
+        rts
+    // locals
+    returnPtr: .word 0
+    }
+}
