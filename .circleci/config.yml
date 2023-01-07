@@ -7,7 +7,7 @@ jobs:
         - master
         - develop
     docker:
-      - image: maciejmalecki/c64libci:0.1.4
+      - image: maciejmalecki/c64libci:0.1.7
 
     working_directory: ~/repo
 
@@ -18,4 +18,4 @@ jobs:
     steps:
       - checkout
 
-      - run: ./gradlew
+      - run: ./gradlew licenseAsm build
