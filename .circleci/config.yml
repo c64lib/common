@@ -18,4 +18,4 @@ jobs:
     steps:
       - checkout
 
-      - run: ./gradlew
+      - run: ./gradlew licenseAsm build

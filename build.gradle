@@ -1,10 +1,28 @@
 plugins {
     id "com.github.c64lib.retro-assembler" version "1.6.0"
+    id "com.github.hierynomus.license" version "0.16.1"
 }
 
 repositories {
     mavenCentral()
 }
+
+license {
+    header = file("LICENSE")
+    excludes([".ra"])
+    include "**/*.asm"
+    mapping {
+        asm = 'SLASHSTAR_STYLE'
+    }
+}
+
+task licenseFormatAsm(type: com.hierynomus.gradle.license.tasks.LicenseFormat) {
+    source = fileTree(dir: ".").include("**/*.asm").exclude(".ra")
+}
+task licenseAsm(type: com.hierynomus.gradle.license.tasks.LicenseCheck) {
+    source = fileTree(dir: ".").include("**/*.asm").exclude(".ra")
+}
+licenseFormat.dependsOn licenseFormatAsm
 
 retroProject {
     dialect = "KickAssembler"
