@@ -8,10 +8,16 @@ Check our [User's Manual](https://c64lib.github.io/user-manual/#_common) for mor
 
 ## Change log
 
+### Changes in version 0.5.0
+
+* New macro exposed: `c64lib_copy8`
+* New macro exposed: `c64lib_copy16`
+* New subroutine: `copy-large-mem-backward.asm`
+
 ### Changes in version 0.4.0
 
 * New macro: `compress.asm\compressRLE`.
-* New subroutine: `decompress_rle.asm`.
+* New subroutine: `decompress-rle.asm`.
 
 ### Changes in version 0.3.0
 
