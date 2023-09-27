@@ -22,17 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "mem.asm"
-#importonce
-.filenamespace c64lib
+#import "64spec/lib/64spec.asm"
+#import "../lib/invoke-global.asm"
 
-.macro @c64lib_copyFast(source, destination, count) { copyFast(source, destination, count) }
-.macro @c64lib_fillScreen(address, value) { fillScreen(address, value) }
-.macro @c64lib_set8(value, mem) { set8(value, mem) }
-.pseudocommand @c64lib_set8 value : mem { set8 value : mem }
-.pseudocommand @c64lib_copy8 source: dest { copy8 source: dest }
-.pseudocommand @c64lib_copy16 source: dest { copy16 source: dest }
-.macro @c64lib_set16(value, mem) { set16(value, mem) }
-.macro @c64lib_copyWordIndirect(source, destinationPointer) { copyWordIndirect(source, destinationPointer) }
-.macro @c64lib_cmp16(value, low) { cmp16(value, low) } 
-.macro @c64lib_rotateMemRightFast(startPtr, count) { rotateMemRightFast(startPtr, count) }
+
+sfspec: init_spec()
+
+  describe("copyLargeMemBackward")
+
+  it("copies 7 bytes forward non overlapping"); {
+    c64lib_pushParamW(dataToBeMoved)
+    c64lib_pushParamW(targetLocation)
+    c64lib_pushParamW(7)
+    jsr copyLargeMemForward
+
+    assert_bytes_equal 7: targetLocation: dataToBeMoved
+  }
+
+  it("copies 260 bytes forward non overlapping"); {
+    c64lib_pushParamW(largeDataToBeMoved)
+    c64lib_pushParamW(largeTargetLocation)
+    c64lib_pushParamW(260)
+    jsr copyLargeMemForward
+
+    assert_bytes_equal 19: largeTargetLocation: largeDataToBeMoved
+  }
+
+finish_spec()
+
+* = * "Data"
+copyLargeMemForward:
+                #import "../lib/sub/copy-large-mem-forward.asm"
+dataToBeMoved: .text "foo bar"
+targetLocation: .text "       "
+
+largeDataToBeMoved: .fill 260, 127.5 + sin(toRadians(i*360/256))
+largeTargetLocation: .fill 260, 0

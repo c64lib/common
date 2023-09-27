@@ -22,17 +22,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#import "mem.asm"
-#importonce
-.filenamespace c64lib
+#import "../invoke.asm"
+#import "../mem.asm"
+#import "../math.asm"
 
-.macro @c64lib_copyFast(source, destination, count) { copyFast(source, destination, count) }
-.macro @c64lib_fillScreen(address, value) { fillScreen(address, value) }
-.macro @c64lib_set8(value, mem) { set8(value, mem) }
-.pseudocommand @c64lib_set8 value : mem { set8 value : mem }
-.pseudocommand @c64lib_copy8 source: dest { copy8 source: dest }
-.pseudocommand @c64lib_copy16 source: dest { copy16 source: dest }
-.macro @c64lib_set16(value, mem) { set16(value, mem) }
-.macro @c64lib_copyWordIndirect(source, destinationPointer) { copyWordIndirect(source, destinationPointer) }
-.macro @c64lib_cmp16(value, low) { cmp16(value, low) } 
-.macro @c64lib_rotateMemRightFast(startPtr, count) { rotateMemRightFast(startPtr, count) }
+/*
+ * Copies block of memory backward. Both source and target memory block can overlap as long as target
+ * block is located lower than source block.
+ *
+ * IN:
+ *   Stack WORD - source address
+ *   Stack WORD - target address
+ *   Stack WORD - size
+ * MOD: A, X
+ */
+.namespace c64lib {
+  copyLargeMemBackward: {
+
+  invokeStackBegin(returnPtr)
+  pullParamW(copyCounter)
+  pullParamW(staNext)
+  pullParamW(ldaNext)
+
+  // addMem16(copyCounter, staNext)
+  // addMem16(copyCounter, ldaNext)
+  copyNextPage:
+    ldx #0
+    copyNext:
+      lda ldaNext:$ffff, x
+      sta staNext:$ffff, x
+      dec16(copyCounter)
+      cmp16(0, copyCounter)
+      beq end
+      inx
+      cpx #0
+    bne copyNext
+    add16(256, ldaNext)
+    add16(256, staNext)
+  jmp copyNextPage
+  end:
+
+  invokeStackEnd(returnPtr)
+  rts
+  // local vars
+  returnPtr: .word 0
+  copyCounter: .word 0
+  }
+}
