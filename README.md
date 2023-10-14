@@ -8,6 +8,11 @@ Check our [User's Manual](https://c64lib.github.io/user-manual/#_common) for mor
 
 ## Change log
 
+
+### Changes in version 0.6.0
+
+* Exomizer "in memory" decruncher has been ported to c64lib. See `exo-decrunch.asm`.
+
 ### Changes in version 0.5.0
 
 * New macro exposed: `c64lib_copy8`
