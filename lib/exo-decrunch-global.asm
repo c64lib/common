@@ -26,4 +26,6 @@
 #importonce
 .filenamespace c64lib
 
-.macro @c64lib_exoDecrunch(exod_get_crunched_byte, exod_decrunch_table) { exoDecrunch(exod_get_crunched_byte, exod_decrunch_table) }
+.macro @c64lib_exoDecrunch(exod_get_crunched_byte, exod_decrunch_table, exod_zp_len_lo, exod_zp_src_lo, exod_zp_bits_hi, exod_zp_bitbuf) { 
+    exoDecrunch(exod_get_crunched_byte, exod_decrunch_table, exod_zp_len_lo, exod_zp_src_lo, exod_zp_bits_hi, exod_zp_bitbuf) 
+}

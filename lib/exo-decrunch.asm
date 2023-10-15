@@ -96,8 +96,12 @@ _init_zp:
 }
 
 
+.macro exoDecrunchOriginal(exod_get_crunched_byte) {
+        exoDecrunch(exod_get_crunched_byte, 0, $9e, $ae, $a7, $fd)
+}
 
-.macro exoDecrunch(exod_get_crunched_byte, exod_decrunch_table) {
+
+.macro exoDecrunch(exod_get_crunched_byte, exod_decrunch_table, exod_zp_len_lo, exod_zp_src_lo, exod_zp_bits_hi, exod_zp_bitbuf) {
         jmp exod_decrunch
 // -------------------------------------------------------------------
 // Known quirks:
@@ -160,18 +164,18 @@ _init_zp:
 // -------------------------------------------------------------------
 // zero page addresses used
 // -------------------------------------------------------------------
-.label exod_zp_len_lo = $9e
-.label exod_zp_len_hi = $9f
+// .label exod_zp_len_lo = $9e
+.label exod_zp_len_hi = exod_zp_len_lo + 1//$9f
 
-.label exod_zp_src_lo  = $ae
+// .label exod_zp_src_lo  = $ae
 .label exod_zp_src_hi  = exod_zp_src_lo + 1
 
-.label exod_zp_bits_hi = $a7
+// .label exod_zp_bits_hi = $a7
 #if !EXO_DONT_REUSE_OFFSET
-.label exod_zp_ro_state = $a8
+.label exod_zp_ro_state = exod_zp_bits_hi+1//$a8
 #endif
 
-.label exod_zp_bitbuf  = $fd
+// .label exod_zp_bitbuf  = $fd
 .label exod_zp_dest_lo = exod_zp_bitbuf + 1      // dest addr lo
 .label exod_zp_dest_hi = exod_zp_bitbuf + 2      // dest addr hi
 
